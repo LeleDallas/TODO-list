@@ -1,5 +1,9 @@
+import CustomPageContainer from "../components/Layout/CustomPageContainer"
+
 const Category = () => {
-    return (<div></div>)
+    return (<CustomPageContainer title="Categories">
+        <></>
+    </CustomPageContainer>)
 }
 
 export default Category

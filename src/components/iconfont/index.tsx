@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import React, { SVGAttributes, FunctionComponent } from 'react';
+import { SVGAttributes, FunctionComponent } from 'react';
 import IconGaishuai from './IconGaishuai';
 import IconQuanxuan from './IconQuanxuan';
 import IconShouye from './IconShouye';

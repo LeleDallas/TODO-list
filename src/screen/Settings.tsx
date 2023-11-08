@@ -1,6 +1,6 @@
 import CustomPageContainer from "../components/Layout/CustomPageContainer"
 import { Button, Col, Divider, Popconfirm, Row, Switch } from "antd"
-import { AccountSubTitle, AccountTitle, GreyParagraph } from "../components/Components"
+import { AccountSubTitle, GreyParagraph } from "../components/Components"
 import { QuestionCircleOutlined } from "@ant-design/icons"
 
 
