@@ -1,4 +1,3 @@
-import { Avatar } from "antd";
 import styled from "styled-components";
 
 export const CardTitle = styled.h2`
@@ -24,23 +23,6 @@ color: #636e72;
 font-weight:400;
 line-height: 21px;
 `
-
-export const AvatarHover = styled(Avatar)`
-&:hover {
-    cursor: pointer;
-    }
-
-`
-
-// export const LinkHover = styled(Link)`
-// text-align:"start";
-// font-size:13;
-// color:#636e72;
-// &:hover {
-// color: #022cf7;
-// cursor: pointer;
-// }
-// `
 
 export const PlanParagraph = styled.h2`
 font-size:17px;
