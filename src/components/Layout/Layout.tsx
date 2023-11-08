@@ -51,7 +51,7 @@ const Layout = ({ username, setUsername }: any) => {
                 {pathname === "/" && <Home username={username} />}
                 {pathname === "/home" && <Home username={username} />}
                 {pathname === "/task" && <Task />}
-                {pathname === "/categories" && <Category />}
+                {pathname.includes("/categories") && <Category categoryType={pathname.replace("/categories/", "")} />}
                 {pathname === "/settings" && <Settings username={username} theme={theme} setTheme={updateTheme} setUsername={setUsername} />}
                 <FloatActionButton
                     isDark={theme}

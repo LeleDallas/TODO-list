@@ -1,4 +1,4 @@
-import { checkDarkColor } from '../../utils';
+import { checkDarkColor, renderCategories } from '../../utils';
 import IconFont from '../iconfont';
 
 export const layoutProps = (isDark: boolean) => ({
@@ -21,18 +21,7 @@ export const layoutProps = (isDark: boolean) => ({
                 path: '/categories',
                 name: 'Categories',
                 icon: <IconFont color={checkDarkColor(isDark)} name="fenlei" />,
-                routes: [
-                    {
-                        path: '/categories/a-1',
-                        name: 'A',
-                        icon: <IconFont color={checkDarkColor(isDark)} name="bianxie" />,
-                    },
-                ],
-            },
-            {
-                path: '/calendar',
-                name: 'Calendar',
-                icon: <IconFont color={checkDarkColor(isDark)} name="riqi" />,
+                routes: renderCategories(),
             },
             {
                 path: '/settings',
