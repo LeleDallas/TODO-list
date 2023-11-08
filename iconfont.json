@@ -1,6 +1,6 @@
 {
     "symbol_url": "//at.alicdn.com/t/c/font_4320006_g7ha47o5qfg.js",
-    "use_typescript": false,
+    "use_typescript": true,
     "save_dir": "./src/components/iconfont",
     "trim_icon_prefix": "icon",
     "unit": "px",
