@@ -3,6 +3,7 @@ import CustomPageContainer from "../components/Layout/CustomPageContainer"
 const Home = () => {
     return (
         <CustomPageContainer title="Welcome back, user.name 👋">
+            <></>
         </CustomPageContainer>
     )
 }
