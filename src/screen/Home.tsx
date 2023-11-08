@@ -1,9 +1,9 @@
 import CustomPageContainer from "../components/Layout/CustomPageContainer"
 
-const Home = () => {
+const Home = ({ username }: any) => {
     return (
-        <CustomPageContainer title="Welcome back, user.name 👋">
-            <></>
+        <CustomPageContainer title={`Welcome back, ${username} 👋`}>
+            
         </CustomPageContainer>
     )
 }

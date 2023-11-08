@@ -2,29 +2,38 @@ import { GithubFilled } from '@ant-design/icons';
 import { DefaultFooter, ProLayout } from '@ant-design/pro-components';
 import { ProConfigProvider } from '@ant-design/pro-provider';
 import { useState } from 'react';
-import layoutProps from './layoutProps';
 import FloatActionButton from '../FloatActionButton';
 import Settings from '../../screen/Settings';
 import Home from '../../screen/Home';
 import Category from '../../screen/Category';
 import Task from '../../screen/Task';
+import NewNote from '../Modal/NewNote';
+import NewCategory from '../Modal/NewCategory';
+import { layoutProps } from './layoutProps';
 
 
-export default () => {
-    const [pathname, setPathname] = useState<string>('/home');
-    const [theme, setTheme] = useState(true);
+const Layout = ({ username, setUsername }: any) => {
+    const [pathname, setPathname] = useState<string>('/home')
+    const storedTheme = localStorage.getItem('theme')
+    const [theme, setTheme] = useState(storedTheme !== null ? JSON.parse(storedTheme) : true)
+    const [categoryVisible, setCategoryVisible] = useState(false)
+    const [noteVisible, setNoteVisible] = useState(false)
+    const updateTheme = (isDark: boolean): void => {
+        setTheme(isDark)
+        localStorage.setItem('theme', JSON.stringify(isDark))
+    }
 
     return (
         <ProConfigProvider dark={theme}>
             <ProLayout
                 style={{ width: "100%" }}
                 footerRender={() => <DefaultFooter copyright="2023 by LeleDallas All Rights Reserved" />}
-                {...layoutProps}
+                {...layoutProps(theme)}
                 location={{ pathname }}
                 avatarProps={{
                     src: 'https://gw.alipayobjects.com/zos/antfincdn/efFD%24IOql2/weixintupian_20170331104822.jpg',
                     size: 'default',
-                    title: 'UserName',
+                    title: username,
                 }}
                 actionsRender={() => [
                     <GithubFilled key="GithubFilled"
@@ -39,13 +48,27 @@ export default () => {
                     </a>
                 )}
             >
-                {pathname === "/" && <Home />}
-                {pathname === "/home" && <Home />}
+                {pathname === "/" && <Home username={username} />}
+                {pathname === "/home" && <Home username={username} />}
                 {pathname === "/task" && <Task />}
                 {pathname === "/categories" && <Category />}
-                {pathname === "/settings" && <Settings theme={theme} setTheme={setTheme} />}
-                <FloatActionButton />
+                {pathname === "/settings" && <Settings username={username} theme={theme} setTheme={updateTheme} setUsername={setUsername} />}
+                <FloatActionButton
+                    isDark={theme}
+                    setCategoryVisible={setCategoryVisible}
+                    setNoteVisible={setNoteVisible}
+                />
+                <NewNote
+                    visible={noteVisible}
+                    setVisible={setNoteVisible}
+                />
+                <NewCategory
+                    visible={categoryVisible}
+                    setVisible={setCategoryVisible}
+                />
             </ProLayout>
         </ProConfigProvider>
     );
 };
+
+export default Layout
