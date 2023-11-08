@@ -21,7 +21,6 @@ export default {
                 name: 'Categories',
                 icon: <IconFont color={"white"} name="fenlei" />,
                 routes: [
-
                     {
                         path: '/categories/a-1',
                         name: 'A',

@@ -3,7 +3,7 @@ import { DefaultFooter, ProLayout } from '@ant-design/pro-components';
 import { ProConfigProvider } from '@ant-design/pro-provider';
 import { useState } from 'react';
 import layoutProps from './layoutProps';
-import FloatActionButton from '../Float/FloatActionButton';
+import FloatActionButton from '../FloatActionButton';
 import Settings from '../../screen/Settings';
 import Home from '../../screen/Home';
 import Category from '../../screen/Category';
