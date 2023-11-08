@@ -1,6 +1,7 @@
+import { checkDarkColor } from '../../utils';
 import IconFont from '../iconfont';
 
-export default {
+export const layoutProps = (isDark: boolean) => ({
     logo: "https://cdn-icons-png.flaticon.com/512/11639/11639333.png",
     title: "TODO List",
     route: {
@@ -9,38 +10,39 @@ export default {
             {
                 path: '/home',
                 name: 'Home',
-                icon: <IconFont color={"white"} name="xiaoxi" />,
+                icon: <IconFont color={checkDarkColor(isDark)} name="xiaoxi" />,
             },
             {
                 path: '/task',
                 name: 'My task',
-                icon: <IconFont color={"white"} name="riqi" />,
+                icon: <IconFont color={checkDarkColor(isDark)} name="riqi" />,
             },
             {
                 path: '/categories',
                 name: 'Categories',
-                icon: <IconFont color={"white"} name="fenlei" />,
+                icon: <IconFont color={checkDarkColor(isDark)} name="fenlei" />,
                 routes: [
                     {
                         path: '/categories/a-1',
                         name: 'A',
-                        icon: <IconFont color={"white"} name="bianxie" />,
+                        icon: <IconFont color={checkDarkColor(isDark)} name="bianxie" />,
                     },
                 ],
             },
             {
                 path: '/calendar',
                 name: 'Calendar',
-                icon: <IconFont color={"white"} name="riqi" />,
+                icon: <IconFont color={checkDarkColor(isDark)} name="riqi" />,
             },
             {
                 path: '/settings',
                 name: 'Settings',
-                icon: <IconFont color={"white"} name="shezhi" />,
+                icon: <IconFont color={checkDarkColor(isDark)} name="shezhi" />,
             },
         ],
     },
     location: {
         pathname: '/',
     },
-};
+});
+
