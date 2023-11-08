@@ -34,21 +34,24 @@ const NewNote = ({ visible, setVisible }: ModalType) => {
                 <ProFormSelect
                     required
                     placeholder="Select..."
-                    // request={async () => [
-                    //     {
-                    //         value: '1',
-                    //         label: '1',
-                    //     },
-                    // ]}
+                    request={async () => {
+                        const tmpCategories = localStorage.getItem("categories")
+                        const categories: CategoryList = tmpCategories ? JSON.parse(tmpCategories) : []
+                        return Object.entries(categories).map(([_, category]) =>
+                        ({
+                            value: `/categories/${category.title}`,
+                            label: category.title,
+                        }))
+                    }}
                     width="md"
-                    name="useMode"
+                    name="category"
                     label="Category"
                 />
                 <ProFormSelect
                     required
                     placeholder="Select..."
                     width="md"
-                    name="useMode"
+                    name="priority"
                     label="Priority"
                 />
                 <ProFormDatePicker required name="contractTime" label="Date Milestone" />
