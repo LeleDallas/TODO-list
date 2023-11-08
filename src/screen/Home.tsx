@@ -1,4 +1,3 @@
-import { Layout } from "antd"
 import CustomPageContainer from "../components/Layout/CustomPageContainer"
 
 const Home = () => {
