@@ -9,12 +9,7 @@ export const layoutProps = (isDark: boolean) => ({
         routes: [
             {
                 path: '/home',
-                name: 'Home',
-                icon: <IconFont color={checkDarkColor(isDark)} name="xiaoxi" />,
-            },
-            {
-                path: '/task',
-                name: 'My task',
+                name: 'My TODO List',
                 icon: <IconFont color={checkDarkColor(isDark)} name="riqi" />,
             },
             {
