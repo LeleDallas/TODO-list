@@ -2,7 +2,8 @@ type Task = {
     date: Date
     title: string
     description?: string
-    state: boolean
+    priority: string
+    status: boolean
 }
 
 

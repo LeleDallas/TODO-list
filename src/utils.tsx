@@ -1,3 +1,5 @@
+import { Key } from "react";
+
 export const checkDarkColor = (isDark: boolean): string => isDark ? "white" : "black"
 
 export const getCurrentDate = (separator = '') => {
@@ -16,4 +18,37 @@ export const renderCategories = () => {
         path: `/categories/${category.title}`,
         name: category.title,
     }))
-} 
+}
+
+export const deleteCategory = (category: string, callback: any): void => {
+    const categories = localStorage.getItem("categories")
+    const parseCategory: CategoryList = categories ? JSON.parse(categories) : {}
+    delete parseCategory[category]
+    localStorage.setItem("categories", JSON.stringify(parseCategory))
+    callback()
+}
+
+export const updateCategory = (keyList: Array<Key>, category: string, callback: any): void => {
+    const categories = localStorage.getItem("categories")
+    const parseCategory: CategoryList = categories ? JSON.parse(categories) : {}
+    for (const todo of parseCategory[category].todo) {
+        if (keyList.includes(todo.title)) {
+            todo.status = !todo.status;
+        }
+    }
+    localStorage.setItem("categories", JSON.stringify(parseCategory))
+    callback()
+}
+
+export const resetAll = (callback: any): void => {
+    localStorage.setItem('categories', JSON.stringify({}))
+    callback()
+}
+
+export const deleteTodo = (key: string, category: string, callback: any): void => {
+    const categories = localStorage.getItem("categories")
+    const parseCategory: CategoryList = categories ? JSON.parse(categories) : {}
+    parseCategory[category].todo = parseCategory[category].todo.filter(item => item.title !== key)
+    localStorage.setItem("categories", JSON.stringify(parseCategory))
+    callback()
+}
