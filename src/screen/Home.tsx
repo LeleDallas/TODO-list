@@ -1,7 +1,8 @@
 import { Card, Col, Row, Statistic, Timeline } from "antd"
 import CustomPageContainer from "../components/Layout/CustomPageContainer"
-import { countTodo, sortTasksByDate } from "../utils"
-import { CardTitle, HomeTitle } from "../components/Components"
+import { countTodo } from "../utils"
+import { HomeTitle } from "../components/Components"
+import CustomTransfer from "../components/CustomTransfer"
 
 type HomeProps = {
     username: string
@@ -26,7 +27,7 @@ const Home = ({ username }: HomeProps) => {
     return (
         <CustomPageContainer title={`Welcome back, ${username} 👋`}>
             <>
-                <Col span={24}>
+                <Col span={24} style={{ marginBottom: 32 }}>
                     <Card
                         bordered={true}
                         bodyStyle={{ padding: 12 }}
@@ -51,9 +52,9 @@ const Home = ({ username }: HomeProps) => {
                         </Row>
                     </Card>
                 </Col>
-                <CardTitle>Todo timeline</CardTitle>
-                <Timeline style={{ marginTop: 22 }} items={sortTasksByDate(parseCategory)} mode="right" />
-
+                <Row justify="center">
+                    <CustomTransfer />
+                </Row>
             </>
         </CustomPageContainer >
     )
