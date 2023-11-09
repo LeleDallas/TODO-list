@@ -1,8 +1,6 @@
 
 import ProForm, { ModalForm, ProFormDatePicker, ProFormSelect, ProFormText } from "@ant-design/pro-form"
 import { message } from "antd";
-import { ModalType } from "./ModalType";
-
 
 const NewNote = ({ visible, setVisible }: ModalType) => {
     return (

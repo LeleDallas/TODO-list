@@ -1,12 +1,11 @@
 
 import ProForm, { ModalForm, ProFormText } from "@ant-design/pro-form"
 import { ColorPicker, message } from "antd";
-import { ModalType } from "./ModalType";
 import { useState } from "react";
 import { Color } from "antd/es/color-picker";
 
 const NewCategory = ({ visible, setVisible }: ModalType) => {
-    const [color, setColor] = useState<Color | string>();
+    const [color, setColor] = useState<Color | string>("#1677FF");
     return (
         <ModalForm
             requiredMark
@@ -42,7 +41,7 @@ const NewCategory = ({ visible, setVisible }: ModalType) => {
                     tooltip="A title for your new Category"
                     placeholder="Reading/Sports/Working..."
                 />
-                <ColorPicker onChangeComplete={(color) => { setColor(color.toHexString()) }} />
+                <ColorPicker onChangeComplete={(color) => setColor(color.toHexString())} />
             </ProForm.Group>
         </ModalForm>
     )
