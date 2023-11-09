@@ -22,10 +22,10 @@
 <!-- ABOUT THE PROJECT -->
 <h2 id="about-the-project"> :pencil: About The Project</h2>
 
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=LeleDallas_skillsfolio&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=LeleDallas_TODO-list)
-[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=LeleDallas_skillsfolio&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=LeleDallas_TODO-list)
-[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=LeleDallas_skillsfolio&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=LeleDallas_TODO-list)
-[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=LeleDallas_skillsfolio&metric=bugs)](https://sonarcloud.io/summary/new_code?id=LeleDallas_TODO-list)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=LeleDallas_TODO-list&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=LeleDallas_TODO-list)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=LeleDallas_TODO-list&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=LeleDallas_TODO-list)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=LeleDallas_TODO-list&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=LeleDallas_TODO-list)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=LeleDallas_TODO-list&metric=bugs)](https://sonarcloud.io/summary/new_code?id=LeleDallas_TODO-list)
 
 <p align="justify"> 
 The TODO-list is a versatile and fully responsive application designed to help you manage your tasks and stay organized efficiently. It has been developed using modern technologies such as Bun, React and Vite, ensuring a seamless user experience across all devices.
