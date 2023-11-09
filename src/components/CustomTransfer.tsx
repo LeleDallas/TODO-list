@@ -1,38 +1,37 @@
-import { useState } from 'react';
-import { Transfer } from 'antd';
+import { useState } from 'react'
+import { Transfer } from 'antd'
 
-interface RecordType {
-    key: string;
-    title: string;
-    description: string;
-}
+const CustomTransfer = (categoryList: CategoryList) => {
+    const finalArray = [];
 
-const mockData: RecordType[] = Array.from({ length: 20 }).map((_, i) => ({
-    key: i.toString(),
-    title: `content${i + 1}`,
-    tag: `content${i + 1}`,
-    description: `description of content${i + 1}`,
-}));
-const initialTargetKeys = mockData.filter((item) => Number(item.key) > 10).map((item) => item.key);
-
-const CustomTransfer = () => {
-    const [targetKeys, setTargetKeys] = useState(initialTargetKeys);
-    const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
+    for (const categoryKey in categoryList) {
+        const category = categoryList[categoryKey]
+        const categoryTitle = category.title
+        for (const task of category.todo) {
+            finalArray.push({
+                ...task,
+                key: task.title + categoryTitle,
+                category: categoryTitle,
+            })
+        }
+    }
+    const [targetKeys, setTargetKeys] = useState(finalArray.filter(el => el.status === true).map(el => el.key))
+    const [selectedKeys, setSelectedKeys] = useState<string[]>([])
 
     const onChange = (nextTargetKeys: string[]) => {
-        setTargetKeys(nextTargetKeys);
-    };
+        setTargetKeys(nextTargetKeys)
+    }
 
     const onSelectChange = (sourceSelectedKeys: string[], targetSelectedKeys: string[]) => {
-        setSelectedKeys([...sourceSelectedKeys, ...targetSelectedKeys]);
-    };
+        setSelectedKeys([...sourceSelectedKeys, ...targetSelectedKeys])
+    }
 
     return (
         <Transfer
             showSearch
-            showSelectAll={false}
-            listStyle={{ height: "100%", minHeight: 200 }}
-            dataSource={mockData}
+            style={{ justifyContent: "center" }}
+            listStyle={{ minHeight: 400, height: "100%", width: "100%" }}
+            dataSource={finalArray}
             titles={['To do', 'Done']}
             targetKeys={targetKeys}
             selectedKeys={selectedKeys}
@@ -40,7 +39,7 @@ const CustomTransfer = () => {
             onSelectChange={onSelectChange}
             render={(item) => item.title}
         />
-    );
-};
+    )
+}
 
-export default CustomTransfer;
+export default CustomTransfer

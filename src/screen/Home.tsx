@@ -1,4 +1,4 @@
-import { Card, Col, Row, Statistic, Timeline } from "antd"
+import { Card, Col, Row, Statistic } from "antd"
 import CustomPageContainer from "../components/Layout/CustomPageContainer"
 import { countTodo } from "../utils"
 import { HomeTitle } from "../components/Components"
@@ -36,12 +36,12 @@ const Home = ({ username }: HomeProps) => {
                         <Row justify="space-around">
                             <Statistic
                                 title={<HomeTitle>To do</HomeTitle>}
-                                value={countTodo(Array.from(todoMap.values())).done}
+                                value={countTodo(Array.from(todoMap.values())).todo}
                                 valueStyle={{ color: '#faad14' }}
                             />
                             <Statistic
                                 title={<HomeTitle>Done</HomeTitle>}
-                                value={countTodo(Array.from(todoMap.values())).todo}
+                                value={countTodo(Array.from(todoMap.values())).done}
                                 valueStyle={{ color: '#52c41a' }}
                             />
                             <Statistic
@@ -52,9 +52,7 @@ const Home = ({ username }: HomeProps) => {
                         </Row>
                     </Card>
                 </Col>
-                <Row justify="center">
-                    <CustomTransfer />
-                </Row>
+                <CustomTransfer {...parseCategory} />
             </>
         </CustomPageContainer >
     )
