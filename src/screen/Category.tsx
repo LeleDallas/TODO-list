@@ -27,7 +27,6 @@ const Category = ({ categoryType, setCategoryVisible, setNoteVisible, setPathnam
 
     useEffect(() => { setSelectedRowKeys([]) }, [update])
 
-
     return (
         <CustomPageContainer title="Categories">
             {categoryType === "/categories" ?
@@ -77,9 +76,12 @@ const Category = ({ categoryType, setCategoryVisible, setNoteVisible, setPathnam
                         dataSource={categoryList?.todo}
                     />
                     {selectedRowKeys.length > 0 &&
-                        <Button type="primary" size="large" onClick={() => {
-                            updateCategory(selectedRowKeys, categoryType, () => setUpdate(!update))
-                        }}>
+                        <Button type="primary" size="large" onClick={() =>
+                            updateCategory(
+                                selectedRowKeys,
+                                categoryType,
+                                () => setUpdate(!update))
+                        }>
                             Change Status
                         </Button>
                     }

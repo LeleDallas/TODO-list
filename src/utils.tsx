@@ -1,6 +1,17 @@
+import { TimelineItemProps } from "antd";
 import { Key } from "react";
 
 export const checkDarkColor = (isDark: boolean): string => isDark ? "white" : "black"
+
+export const priorityColor = (priority: Priority): string =>
+    priority === "Low" ? "green" : priority === "Medium" ? "orange" : "red"
+
+export const date2Local = (date: string) => new Date(date)
+    .toLocaleDateString('en-GB', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+    })
 
 export const getCurrentDate = (separator = '') => {
     const newDate = new Date()
@@ -51,4 +62,32 @@ export const deleteTodo = (key: string, category: string, callback: any): void =
     parseCategory[category].todo = parseCategory[category].todo.filter(item => item.title !== key)
     localStorage.setItem("categories", JSON.stringify(parseCategory))
     callback()
+}
+
+export const sortTasksByDate = (categoryList: CategoryList): Array<TimelineItemProps> => {
+    if (!categoryList) {
+        throw new Error("Category list is missing or invalid.");
+    }
+
+    const allTasks: Array<Task> = [];
+    for (const categoryKey in categoryList) {
+        const category = categoryList[categoryKey];
+        allTasks.push(...category.todo);
+    }
+
+    allTasks.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    return allTasks.map(task => ({
+        children: "Type-".toUpperCase() + task.title,
+        label: date2Local(task.date),
+        color: priorityColor(task.priority),
+    }));
+}
+
+
+export const countTodo = (todo: Array<Task>) => {
+    let count = 0;
+    for (const task of todo)
+        if (task.status)
+            count++
+    return { done: count, todo: todo.length - count, total: todo.length };
 }
