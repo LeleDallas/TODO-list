@@ -9,7 +9,10 @@ const App = () => {
       localStorage.setItem('theme', JSON.stringify(isDark));
     }
     if (!localStorage.getItem('username')) {
-      localStorage.setItem('username', "TODO User");
+      localStorage.setItem('username', "TODO User")
+    }
+    if (!localStorage.getItem('categories')) {
+      localStorage.setItem('categories', JSON.stringify({}))
     }
   }, [])
 

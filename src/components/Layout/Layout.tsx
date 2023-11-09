@@ -6,7 +6,6 @@ import FloatActionButton from '../FloatActionButton';
 import Settings from '../../screen/Settings';
 import Home from '../../screen/Home';
 import Category from '../../screen/Category';
-import Task from '../../screen/Task';
 import NewNote from '../Modal/NewNote';
 import NewCategory from '../Modal/NewCategory';
 import { layoutProps } from './layoutProps';
@@ -50,9 +49,22 @@ const Layout = ({ username, setUsername }: any) => {
             >
                 {pathname === "/" && <Home username={username} />}
                 {pathname === "/home" && <Home username={username} />}
-                {pathname === "/task" && <Task />}
-                {pathname === "/categories" && <Category />}
-                {pathname === "/settings" && <Settings username={username} theme={theme} setTheme={updateTheme} setUsername={setUsername} />}
+                {pathname.includes("/categories") &&
+                    <Category
+                        categoryType={pathname.replace("/categories/", "")}
+                        setCategoryVisible={setCategoryVisible}
+                        setNoteVisible={setNoteVisible}
+                        setPathname={setPathname}
+                    />}
+                {pathname === "/settings" &&
+                    <Settings
+                        username={username}
+                        theme={theme}
+                        setTheme={updateTheme}
+                        setUsername={setUsername}
+                        setPathname={setPathname}
+                    />
+                }
                 <FloatActionButton
                     isDark={theme}
                     setCategoryVisible={setCategoryVisible}

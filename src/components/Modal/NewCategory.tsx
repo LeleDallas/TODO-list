@@ -1,9 +1,12 @@
 
 import ProForm, { ModalForm, ProFormText } from "@ant-design/pro-form"
-import { message } from "antd";
+import { ColorPicker, message } from "antd";
 import { ModalType } from "./ModalType";
+import { useState } from "react";
+import { Color } from "antd/es/color-picker";
 
 const NewCategory = ({ visible, setVisible }: ModalType) => {
+    const [color, setColor] = useState<Color | string>();
     return (
         <ModalForm
             requiredMark
@@ -16,21 +19,30 @@ const NewCategory = ({ visible, setVisible }: ModalType) => {
             }}
             submitTimeout={2000}
             onFinish={async (values) => {
-                console.log(values.name);
-                message.success('New Note Added');
+                const title = values.title
+                const categoryList = localStorage.getItem("categories")
+                const existingCategories = categoryList ? JSON.parse(categoryList) : {}
+                existingCategories[title] = {
+                    title,
+                    color,
+                    todo: []
+                }
+                localStorage.setItem("categories", JSON.stringify(existingCategories));
+                message.success('New Category Added');
                 return true;
             }}
             style={{ marginTop: 22 }}
         >
-            <ProForm.Group>
+            <ProForm.Group align="center" >
                 <ProFormText
                     required
                     width="md"
-                    name="name"
+                    name="title"
                     label="Category Title"
                     tooltip="A title for your new Category"
                     placeholder="Reading/Sports/Working..."
                 />
+                <ColorPicker onChangeComplete={(color) => { setColor(color.toHexString()) }} />
             </ProForm.Group>
         </ModalForm>
     )

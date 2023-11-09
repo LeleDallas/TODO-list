@@ -1,3 +1,4 @@
+import { Badge, Col, Space, Tag } from "antd";
 import styled from "styled-components";
 
 export const CardTitle = styled.h2`
@@ -33,3 +34,29 @@ export const PlanTitle = styled.h2`
 font-size:23px;
 font-weight:500;
 `
+
+export const renderBadge = (count: number, backgroundColor: string) =>
+    <Badge
+        showZero
+        count={count}
+        style={{
+            marginBlockStart: -2,
+            marginInlineStart: 4,
+            backgroundColor,
+        }}
+    />
+
+const priorityColor = (priority: string): string =>
+    priority === "Low" ? "green" : priority === "Medium" ? "orange" : "red"
+
+const statusData = (status: boolean) => status ? { color: "green", title: "DONE" } : { color: "red", title: "TODO" }
+
+
+export const PriorityBadge = (data: Task) =>
+    <Space size={0}>
+        <Col>
+            <Tag color={priorityColor(data.priority)}>{data.priority}</Tag>
+            <Tag color="blue">{data.date.toString()}</Tag>
+            <Tag color={statusData(data.status).color}>{statusData(data.status).title}</Tag>
+        </Col>
+    </Space>

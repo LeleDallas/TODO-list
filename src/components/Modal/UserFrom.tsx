@@ -21,7 +21,6 @@ const UserFrom = ({ visible, setVisible, username, setUsername }: UserFromType) 
             }}
             submitTimeout={2000}
             onFinish={async (values) => {
-                console.log(values.username);
                 if (values.username !== username && values.username.length > 0) {
                     localStorage.setItem("username", values.username)
                     setUsername(values.username)
