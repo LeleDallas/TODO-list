@@ -1,5 +1,6 @@
 import { Badge, Col, Space, Tag } from "antd";
 import styled from "styled-components";
+import { date2Local, priorityColor } from "../utils";
 
 export const CardTitle = styled.h2`
 font-size:16px;
@@ -25,9 +26,10 @@ font-weight:400;
 line-height: 21px;
 `
 
-export const PlanParagraph = styled.h2`
-font-size:17px;
-font-weight:400;
+export const HomeTitle = styled.h2`
+font-size:18px;
+font-weight:500;
+margin:0px
 `
 
 export const PlanTitle = styled.h2`
@@ -46,17 +48,13 @@ export const renderBadge = (count: number, backgroundColor: string) =>
         }}
     />
 
-const priorityColor = (priority: string): string =>
-    priority === "Low" ? "green" : priority === "Medium" ? "orange" : "red"
-
 const statusData = (status: boolean) => status ? { color: "green", title: "DONE" } : { color: "red", title: "TODO" }
-
 
 export const PriorityBadge = (data: Task) =>
     <Space size={0}>
         <Col>
             <Tag color={priorityColor(data.priority)}>{data.priority}</Tag>
-            <Tag color="blue">{data.date.toString()}</Tag>
+            <Tag color="blue">{date2Local(data.date)}</Tag>
             <Tag color={statusData(data.status).color}>{statusData(data.status).title}</Tag>
         </Col>
     </Space>
