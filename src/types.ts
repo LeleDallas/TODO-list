@@ -1,9 +1,11 @@
+type Priority = "Low" | "Medium" | "High"
+
 type Task = {
-    date: Date
+    date: string
     title: string
-    description?: string
-    priority: string
+    priority: Priority
     status: boolean
+    description?: string
 }
 
 
