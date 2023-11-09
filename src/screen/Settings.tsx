@@ -4,6 +4,7 @@ import { AccountSubTitle, GreyParagraph } from "../components/Components"
 import { QuestionCircleOutlined } from "@ant-design/icons"
 import { useState } from "react"
 import UserFrom from "../components/Modal/UserFrom"
+import { resetAll } from "../utils"
 
 
 type SettingsProps = {
@@ -11,9 +12,10 @@ type SettingsProps = {
     setTheme: (theme: boolean) => void
     username: string,
     setUsername: (username: string) => void
+    setPathname: (path: string) => void
 }
 
-const Settings = ({ theme, setTheme, username, setUsername }: SettingsProps) => {
+const Settings = ({ theme, setTheme, username, setUsername, setPathname }: SettingsProps) => {
     const [visible, setVisible] = useState(false)
 
     return (
@@ -57,9 +59,9 @@ const Settings = ({ theme, setTheme, username, setUsername }: SettingsProps) => 
                 </Row>
                 <Divider />
                 <Row justify="space-between" align="middle">
-                    <Col span={14}>
+                    <Col>
                         <AccountSubTitle>Delete all TODO</AccountSubTitle>
-                        <GreyParagraph>Remove your tasks from the network.</GreyParagraph>
+                        <GreyParagraph>Remove TODO from the network.</GreyParagraph>
                     </Col>
                     <Col >
                         <Popconfirm
@@ -67,7 +69,7 @@ const Settings = ({ theme, setTheme, username, setUsername }: SettingsProps) => 
                             title="Are you sure? This action is not reversible"
                             okText="Yes"
                             cancelText="No"
-                            onConfirm={() => console.log("")}
+                            onConfirm={() => resetAll(() => setPathname("/"))}
                         >
                             <Button danger style={{ borderRadius: 6, height: 40 }}>Delete</Button>
                         </Popconfirm>

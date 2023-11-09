@@ -33,7 +33,7 @@ const NewCategory = ({ visible, setVisible }: ModalType) => {
             }}
             style={{ marginTop: 22 }}
         >
-            <ProForm.Group>
+            <ProForm.Group align="center" >
                 <ProFormText
                     required
                     width="md"
