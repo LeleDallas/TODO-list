@@ -1,5 +1,5 @@
 import CustomPageContainer from "../components/Layout/CustomPageContainer"
-import { Button, Col, Divider, Popconfirm, Row, Switch } from "antd"
+import { Avatar, Button, Col, Divider, Popconfirm, Row, Switch } from "antd"
 import { AccountSubTitle, GreyParagraph } from "../components/Components"
 import { QuestionCircleOutlined } from "@ant-design/icons"
 import { useState } from "react"
@@ -21,6 +21,10 @@ const Settings = ({ theme, setTheme, username, setUsername, setPathname }: Setti
     return (
         <CustomPageContainer title="Settings">
             <>
+                <Col style={{ textAlign: "center" }}>
+                    <Avatar src={"https://gw.alipayobjects.com/zos/antfincdn/efFD%24IOql2/weixintupian_20170331104822.jpg"} size={120} />
+                    <h2 style={{ marginTop: 22, marginBottom: 2 }}>{username}</h2>
+                </Col>
                 <GreyParagraph>Customize your experience with these settings.</GreyParagraph>
                 <Divider />
                 <Row justify="space-between" align="middle">

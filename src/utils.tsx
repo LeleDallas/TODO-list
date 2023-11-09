@@ -1,5 +1,31 @@
 import { TimelineItemProps } from "antd";
 import { Key } from "react";
+import IconFont from "./components/iconfont";
+
+export const layoutProps = (isDark: boolean) => ({
+    logo: "https://cdn-icons-png.flaticon.com/512/11639/11639333.png",
+    title: "TODO List",
+    route: {
+        path: '/',
+        routes: [
+            {
+                path: '/home',
+                name: 'My TODO List',
+                icon: <IconFont color={checkDarkColor(isDark)} name="riqi" />,
+            },
+            {
+                path: '/settings',
+                name: 'Settings',
+                icon: <IconFont color={checkDarkColor(isDark)} name="shezhi" />,
+            },
+        ],
+    },
+    location: {
+        pathname: '/',
+    },
+});
+
+
 
 export const checkDarkColor = (isDark: boolean): string => isDark ? "white" : "black"
 
@@ -13,19 +39,10 @@ export const date2Local = (date: string) => new Date(date)
         year: 'numeric'
     })
 
-export const getCurrentDate = (separator = '') => {
-    const newDate = new Date()
-    const date = newDate.getDate();
-    const month = newDate.getMonth() + 1;
-    const year = newDate.getFullYear();
-    return `${year}${separator}${month < 10 ? `0${month}` : `${month}`}${separator}${date}`
-}
-
 export const renderCategories = () => {
     const tmpCategories = localStorage.getItem("categories")
     const categories: CategoryList = tmpCategories ? JSON.parse(tmpCategories) : []
-    return Object.entries(categories).map(([_, category]) =>
-    ({
+    return Object.entries(categories).map(([_, category]) => ({
         path: `/categories/${category.title}`,
         name: category.title,
     }))
@@ -56,12 +73,12 @@ export const resetAll = (callback: any): void => {
     callback()
 }
 
-export const deleteTodo = (key: string, category: string, callback: any): void => {
+export const deleteTodo = (key: string, category: string, callback?: any): void => {
     const categories = localStorage.getItem("categories")
     const parseCategory: CategoryList = categories ? JSON.parse(categories) : {}
     parseCategory[category].todo = parseCategory[category].todo.filter(item => item.title !== key)
     localStorage.setItem("categories", JSON.stringify(parseCategory))
-    callback()
+    callback && callback()
 }
 
 export const sortTasksByDate = (categoryList: CategoryList): Array<TimelineItemProps> => {
