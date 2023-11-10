@@ -2,17 +2,21 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    state: false
+    state: false,
+    loading: false
 }
 
-export const update = createSlice({
-    name: 'update',
+export const globalState = createSlice({
+    name: 'globalState',
     initialState: initialState,
     reducers: {
-        updateData: (state) => {
+        reloadState: (state) => {
             state.state = !state.state
+        },
+        setLoad: (state, action) => {
+            state.loading = action.payload
         }
     },
 })
 
-export const { updateData } = update.actions
+export const { reloadState, setLoad } = globalState.actions

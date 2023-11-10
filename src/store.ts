@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { update } from './reducers'
+import { globalState } from './reducers'
 
 export const store = configureStore({
     reducer: {
-        update: update.reducer,
+        update: globalState.reducer,
     },
 })
 
