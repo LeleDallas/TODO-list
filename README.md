@@ -40,7 +40,7 @@ Check the Live Demo [here](https://leledallas.github.io/TODO-list/)
 
 If you wanna edit and then deploy your portfolio, via GitHub Desktop clone this repository and then follow these instruction.
 
-⚠️‼️You need to have Node.js `v18.15.0` or higher installed on your system‼️⚠️
+⚠️‼️You need to have Node.js `v18.15.0` or higher installed on your system and also [`bun`](https://bun.sh/) ‼️⚠️
 
 To run it locally, follow these steps:
 
