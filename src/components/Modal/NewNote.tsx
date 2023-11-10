@@ -1,10 +1,14 @@
 
 import ProForm, { ModalForm, ProFormDatePicker, ProFormSelect, ProFormText } from "@ant-design/pro-form"
+import { loadLocalStorageData, storeData } from "../../utils";
+import { useAppDispatch } from "../../hooks";
+import { reloadState, setLoad } from "../../reducers";
 import { message } from "antd";
-import { ModalType } from "./ModalType";
-
 
 const NewNote = ({ visible, setVisible }: ModalType) => {
+    const dispatch = useAppDispatch()
+
+
     return (
         <ModalForm
             requiredMark
@@ -17,20 +21,32 @@ const NewNote = ({ visible, setVisible }: ModalType) => {
             }}
             submitTimeout={2000}
             onFinish={async (values) => {
-                const { category, title, priority, date } = values
-                const tmpCategories = localStorage.getItem("categories")
-                let categories: CategoryList = tmpCategories ? JSON.parse(tmpCategories) : {}
-                let set = new Set(categories[category].todo)
-                set.add({
+                const { category, title, priority, date } = values;
+                dispatch(setLoad(true))
+                const newToDo: Task = {
                     title,
                     priority,
                     date,
-                    status: false
-                })
-                categories[category].todo = Array.from(set)
-                localStorage.setItem("categories", JSON.stringify(categories))
-                message.success('New Note Added');
+                    completed: false,
+                };
+                const existingTodoList: TodoList = loadLocalStorageData("todoList", new Map());
+                if (existingTodoList.has(category)) {
+                    const tasks: Task[] = existingTodoList.get(category) || [];
+                    const isDuplicateTitle = tasks.some((task) => task.title === title);
+                    if (!isDuplicateTitle) {
+                        tasks.push(newToDo);
+                        existingTodoList.set(category, tasks);
+                    }
+                } else {
+                    existingTodoList.set(category, [newToDo]);
+                }
+                storeData("todoList", existingTodoList);
+                dispatch(reloadState());
                 setVisible(false)
+                setTimeout(() => {
+                    dispatch(setLoad(false))
+                    message.success(`New to do added to ${category}`);
+                }, 1200);
                 return true;
             }}
             style={{ marginTop: 22 }}
@@ -38,6 +54,7 @@ const NewNote = ({ visible, setVisible }: ModalType) => {
             <ProForm.Group>
                 <ProFormText
                     required
+                    rules={[{ required: true, message: 'Please input a note Title!' }]}
                     width="md"
                     name="title"
                     label="Note Title"
@@ -46,21 +63,22 @@ const NewNote = ({ visible, setVisible }: ModalType) => {
                 />
                 <ProFormSelect
                     required
+                    rules={[{ required: true, message: 'Please choose a Category!' }]}
                     placeholder="Select..."
                     request={async () => {
-                        const tmpCategories = localStorage.getItem("categories")
-                        const categories: CategoryList = tmpCategories ? JSON.parse(tmpCategories) : {}
-                        return Object.entries(categories).map(([_, category]) =>
-                        ({
-                            value: category.title,
-                            label: category.title,
-                        }))
+                        const categoryList = localStorage.getItem("categoryColors")
+                        const existingCategories: CategoryColors = categoryList ? new Map(Object.entries(JSON.parse(categoryList))) : new Map() as CategoryColors
+                        return Array.from(existingCategories.keys()).map((categoryKey) => ({
+                            value: categoryKey,
+                            label: categoryKey,
+                        }));
                     }}
                     width="md"
                     name="category"
                     label="Category"
                 />
                 <ProFormSelect
+                    rules={[{ required: true, message: 'Please choose a Priority!' }]}
                     required
                     placeholder="Select..."
                     width="md"
@@ -68,7 +86,9 @@ const NewNote = ({ visible, setVisible }: ModalType) => {
                     label="Priority"
                     options={["Low", "Medium", "High"]}
                 />
-                <ProFormDatePicker required name="date" label="Date Milestone" />
+                <ProFormDatePicker required name="date" label="Date Milestone"
+                    rules={[{ required: true, message: 'Please choose a Date!' }]}
+                />
             </ProForm.Group>
         </ModalForm>
     )

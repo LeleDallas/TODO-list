@@ -5,18 +5,22 @@ import { useState } from 'react';
 import FloatActionButton from '../FloatActionButton';
 import Settings from '../../screen/Settings';
 import Home from '../../screen/Home';
-import Category from '../../screen/Category';
 import NewNote from '../Modal/NewNote';
 import NewCategory from '../Modal/NewCategory';
-import { layoutProps } from './layoutProps';
+import { layoutProps } from '../../utils';
 
+type LayoutProps = {
+    username: string,
+    setUsername: (username: string) => void
+}
 
-const Layout = ({ username, setUsername }: any) => {
-    const [pathname, setPathname] = useState<string>('/home')
+const Layout = ({ username, setUsername }: LayoutProps) => {
     const storedTheme = localStorage.getItem('theme')
+    const [pathname, setPathname] = useState<string>('/home')
     const [theme, setTheme] = useState(storedTheme !== null ? JSON.parse(storedTheme) : true)
     const [categoryVisible, setCategoryVisible] = useState(false)
     const [noteVisible, setNoteVisible] = useState(false)
+
     const updateTheme = (isDark: boolean): void => {
         setTheme(isDark)
         localStorage.setItem('theme', JSON.stringify(isDark))
@@ -29,10 +33,12 @@ const Layout = ({ username, setUsername }: any) => {
                 footerRender={() => <DefaultFooter copyright="2023 by LeleDallas All Rights Reserved" />}
                 {...layoutProps(theme)}
                 location={{ pathname }}
+                layout='top'
                 avatarProps={{
                     src: 'https://gw.alipayobjects.com/zos/antfincdn/efFD%24IOql2/weixintupian_20170331104822.jpg',
                     size: 'default',
                     title: username,
+                    onClick: () => setPathname("/settings"),
                 }}
                 actionsRender={() => [
                     <GithubFilled key="GithubFilled"
@@ -42,20 +48,11 @@ const Layout = ({ username, setUsername }: any) => {
                         }} />]
                 }
                 menuItemRender={(item, dom) => (
-                    <a onClick={() => setPathname(item.path || '/home')}>
-                        {dom}
-                    </a>
+                    <a onClick={() => setPathname(item.path || '/home')}>{dom}</a>
                 )}
             >
                 {pathname === "/" && <Home username={username} />}
                 {pathname === "/home" && <Home username={username} />}
-                {pathname.includes("/categories") &&
-                    <Category
-                        categoryType={pathname.replace("/categories/", "")}
-                        setCategoryVisible={setCategoryVisible}
-                        setNoteVisible={setNoteVisible}
-                        setPathname={setPathname}
-                    />}
                 {pathname === "/settings" &&
                     <Settings
                         username={username}
@@ -65,19 +62,9 @@ const Layout = ({ username, setUsername }: any) => {
                         setPathname={setPathname}
                     />
                 }
-                <FloatActionButton
-                    isDark={theme}
-                    setCategoryVisible={setCategoryVisible}
-                    setNoteVisible={setNoteVisible}
-                />
-                <NewNote
-                    visible={noteVisible}
-                    setVisible={setNoteVisible}
-                />
-                <NewCategory
-                    visible={categoryVisible}
-                    setVisible={setCategoryVisible}
-                />
+                <FloatActionButton isDark={theme} setCategoryVisible={setCategoryVisible} setNoteVisible={setNoteVisible} />
+                <NewNote visible={noteVisible} setVisible={setNoteVisible} />
+                <NewCategory visible={categoryVisible} setVisible={setCategoryVisible} />
             </ProLayout>
         </ProConfigProvider>
     );

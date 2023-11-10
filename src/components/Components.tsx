@@ -1,18 +1,9 @@
-import { Badge, Col, Space, Tag } from "antd";
+import { Badge, Empty, Row, Tag } from "antd";
 import styled from "styled-components";
-import { date2Local, priorityColor } from "../utils";
+import { date2Local, loadLocalStorageData, priorityColor } from "../utils";
+import RowCard from "./RowCard";
+import IconFont from "./iconfont";
 
-export const CardTitle = styled.h2`
-font-size:16px;
-color: #2d3436;
-font-weight:500
-`
-
-export const AccountTitle = styled.h2`
-font-size:30px;
-color: #2d3436;
-font-weight:500
-`
 export const AccountSubTitle = styled.h2`
 font-size:20px;
 color: #2d3436;
@@ -32,10 +23,6 @@ font-weight:500;
 margin:0px
 `
 
-export const PlanTitle = styled.h2`
-font-size:23px;
-font-weight:500;
-`
 
 export const renderBadge = (count: number, backgroundColor: string) =>
     <Badge
@@ -48,13 +35,37 @@ export const renderBadge = (count: number, backgroundColor: string) =>
         }}
     />
 
-const statusData = (status: boolean) => status ? { color: "green", title: "DONE" } : { color: "red", title: "TODO" }
-
 export const PriorityBadge = (data: Task) =>
-    <Space size={0}>
-        <Col>
-            <Tag color={priorityColor(data.priority)}>{data.priority}</Tag>
-            <Tag color="blue">{date2Local(data.date)}</Tag>
-            <Tag color={statusData(data.status).color}>{statusData(data.status).title}</Tag>
-        </Col>
-    </Space>
+    <Row justify="center">
+        <Tag color={priorityColor(data.priority)}>
+            <Row align="middle">
+                <IconFont name="dingdan" size={16} color={priorityColor(data.priority)} />
+                {data.priority}
+            </Row>
+        </Tag>
+        <Tag color="green">
+            <Row align="middle">
+                <IconFont name="riqi" size={16} color="green" />
+                {date2Local(data.date)}
+            </Row>
+        </Tag>
+    </Row>
+
+
+export const renderRow = (category: string): React.ReactNode => {
+    const existingTodoList: TodoList = loadLocalStorageData("todoList", new Map())
+    const tasks: Task[] = existingTodoList.get(category) ?? []
+    return tasks.map((task) => <RowCard key={task.title} category={category} task={task} />)
+};
+
+export const renderAllRow = (): React.ReactNode => {
+    const existingTodoList: TodoList = loadLocalStorageData("todoList", new Map())
+    return existingTodoList.size === 0 ? (
+        <Empty description="No task to do yet" />
+    ) : (
+        Array.from(existingTodoList.keys()).flatMap((category) => {
+            const tasks: Task[] = existingTodoList.get(category) ?? []
+            return tasks.map((task) => <RowCard key={task.title} category={category} task={task} />)
+        })
+    )
+}

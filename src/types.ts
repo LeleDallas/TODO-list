@@ -4,18 +4,15 @@ type Task = {
     date: string
     title: string
     priority: Priority
-    status: boolean
+    completed: boolean
     description?: string
-}
+};
 
+type TodoList = Map<string, Task[]>;
 
-type Category = {
-    title: string
-    color: string,
-    todo: Array<Task>
-}
+type CategoryColors = Map<string, string>;
 
-
-type CategoryList = {
-    [key: string]: Category
+type ModalType = {
+    visible: boolean,
+    setVisible: (visible: boolean) => void
 }
