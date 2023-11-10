@@ -31,7 +31,7 @@ const NewNote = ({ visible, setVisible }: ModalType) => {
                 };
                 const existingTodoList: TodoList = loadLocalStorageData("todoList", new Map());
                 if (existingTodoList.has(category)) {
-                    const tasks: Task[] = existingTodoList.get(category) || [];
+                    const tasks: Task[] = existingTodoList.get(category) ?? [];
                     const isDuplicateTitle = tasks.some((task) => task.title === title);
                     if (!isDuplicateTitle) {
                         tasks.push(newToDo);

@@ -17,7 +17,7 @@ const RowCard = ({ task, category }: RowCard) => {
     const onChange = () => {
         const existingTodoList: TodoList = loadLocalStorageData("todoList", new Map())
         const updatedTodoList = new Map(existingTodoList)
-        const tasks = updatedTodoList.get(category) || []
+        const tasks = updatedTodoList.get(category) ?? []
         const updatedTasks = tasks.map((t) =>
             t.title === task.title ? { ...t, completed: !t.completed } : t
         )
@@ -30,7 +30,7 @@ const RowCard = ({ task, category }: RowCard) => {
     const deleteTodo = (title: string, category: string): void => {
         const existingTodoList: TodoList = loadLocalStorageData("todoList", new Map())
         if (existingTodoList.has(category)) {
-            const tasks = existingTodoList.get(category) || []
+            const tasks = existingTodoList.get(category) ?? []
             const updatedTasks = tasks.filter((task) => task.title !== title)
             existingTodoList.set(category, updatedTasks)
             storeData("todoList", existingTodoList)
