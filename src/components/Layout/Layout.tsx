@@ -48,7 +48,7 @@ const Layout = ({ username, setUsername }: LayoutProps) => {
                         }} />]
                 }
                 menuItemRender={(item, dom) => (
-                    <a onClick={() => setPathname(item.path || '/home')}>{dom}</a>
+                    <a onKeyDown={() => setPathname(item.path || '/home')} onClick={() => setPathname(item.path || '/home')}>{dom}</a>
                 )}
             >
                 {pathname === "/" && <Home username={username} />}
