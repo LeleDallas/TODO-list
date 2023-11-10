@@ -9,8 +9,12 @@ import NewNote from '../Modal/NewNote';
 import NewCategory from '../Modal/NewCategory';
 import { layoutProps } from '../../utils';
 
+type LayoutProps = {
+    username: string,
+    setUsername: (username: string) => void
+}
 
-const Layout = ({ username, setUsername }: any) => {
+const Layout = ({ username, setUsername }: LayoutProps) => {
     const storedTheme = localStorage.getItem('theme')
     const [pathname, setPathname] = useState<string>('/home')
     const [theme, setTheme] = useState(storedTheme !== null ? JSON.parse(storedTheme) : true)
@@ -34,6 +38,7 @@ const Layout = ({ username, setUsername }: any) => {
                     src: 'https://gw.alipayobjects.com/zos/antfincdn/efFD%24IOql2/weixintupian_20170331104822.jpg',
                     size: 'default',
                     title: username,
+                    onClick: () => setPathname("/settings"),
                 }}
                 actionsRender={() => [
                     <GithubFilled key="GithubFilled"
@@ -57,19 +62,9 @@ const Layout = ({ username, setUsername }: any) => {
                         setPathname={setPathname}
                     />
                 }
-                <FloatActionButton
-                    isDark={theme}
-                    setCategoryVisible={setCategoryVisible}
-                    setNoteVisible={setNoteVisible}
-                />
-                <NewNote
-                    visible={noteVisible}
-                    setVisible={setNoteVisible}
-                />
-                <NewCategory
-                    visible={categoryVisible}
-                    setVisible={setCategoryVisible}
-                />
+                <FloatActionButton isDark={theme} setCategoryVisible={setCategoryVisible} setNoteVisible={setNoteVisible} />
+                <NewNote visible={noteVisible} setVisible={setNoteVisible} />
+                <NewCategory visible={categoryVisible} setVisible={setCategoryVisible} />
             </ProLayout>
         </ProConfigProvider>
     );

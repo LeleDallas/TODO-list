@@ -4,8 +4,7 @@ import { AccountSubTitle, GreyParagraph } from "../components/Components"
 import { QuestionCircleOutlined } from "@ant-design/icons"
 import { useState } from "react"
 import UserFrom from "../components/Modal/UserFrom"
-import { resetAll } from "../utils"
-
+import { storeData } from "../utils"
 
 type SettingsProps = {
     theme: boolean
@@ -28,27 +27,21 @@ const Settings = ({ theme, setTheme, username, setUsername, setPathname }: Setti
                 <GreyParagraph>Customize your experience with these settings.</GreyParagraph>
                 <Divider />
                 <Row justify="space-between" align="middle">
-                    <Col>
-                        <AccountSubTitle>Theme</AccountSubTitle>
-                        <GreyParagraph>Edit program theme.</GreyParagraph>
+                    <Col span={12}>
+                        <AccountSubTitle>Dark Theme</AccountSubTitle>
+                        <GreyParagraph>Activate dark mode.</GreyParagraph>
                     </Col>
                     <Col style={{ marginRight: "10px" }}>
-                        <Switch defaultChecked={theme} onChange={(val) => setTheme(val)} />
+                        <Row align="middle" >
+                            <Switch
+                                defaultChecked={theme}
+                                onChange={(val) => setTheme(val)} />
+                        </Row>
                     </Col>
                 </Row>
                 <Divider />
                 <Row justify="space-between" align="middle">
-                    <Col>
-                        <AccountSubTitle>Notifications</AccountSubTitle>
-                        <GreyParagraph>Edit push notifications.</GreyParagraph>
-                    </Col>
-                    <Col style={{ marginRight: "10px" }}>
-                        <Switch />
-                    </Col>
-                </Row>
-                <Divider />
-                <Row justify="space-between" align="middle">
-                    <Col>
+                    <Col span={12}>
                         <AccountSubTitle>Change Username</AccountSubTitle>
                         <GreyParagraph>Set your username.</GreyParagraph>
                     </Col>
@@ -63,7 +56,7 @@ const Settings = ({ theme, setTheme, username, setUsername, setPathname }: Setti
                 </Row>
                 <Divider />
                 <Row justify="space-between" align="middle">
-                    <Col>
+                    <Col span={12}>
                         <AccountSubTitle>Delete all TODO</AccountSubTitle>
                         <GreyParagraph>Remove TODO from the network.</GreyParagraph>
                     </Col>
@@ -73,7 +66,11 @@ const Settings = ({ theme, setTheme, username, setUsername, setPathname }: Setti
                             title="Are you sure? This action is not reversible"
                             okText="Yes"
                             cancelText="No"
-                            onConfirm={() => resetAll(() => setPathname("/"))}
+                            onConfirm={() => {
+                                storeData('todoList', new Map())
+                                storeData('categoryColors', new Map())
+                                setPathname("/home")
+                            }}
                         >
                             <Button danger style={{ borderRadius: 6, height: 40 }}>Delete</Button>
                         </Popconfirm>

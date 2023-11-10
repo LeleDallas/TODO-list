@@ -6,23 +6,20 @@ type CustomPageContainerProps = {
     title: string
 }
 
-const CustomPageContainer = ({ children, title = "" }: CustomPageContainerProps) => {
-    return (
-        <PageContainer
-            childrenContentStyle={{ paddingInline: 10 }}
-            title={title}
+const CustomPageContainer = ({ children, title = "" }: CustomPageContainerProps) =>
+    <PageContainer
+        childrenContentStyle={{ paddingInline: 10 }}
+        title={title}
+    >
+        <ProCard
+            style={{
+                minHeight: '70vh',
+                borderRadius: "20px",
+                boxShadow: "0 2px 10px rgba(0,0,0,0.2)"
+            }}
         >
-            <ProCard
-                style={{
-                    minHeight: '70vh',
-                    borderRadius: "20px",
-                    boxShadow: "0 2px 10px rgba(0,0,0,0.2)"
-                }}
-            >
-                {children}
-            </ProCard>
-        </PageContainer>
-    )
-}
+            {children}
+        </ProCard>
+    </PageContainer>
 
 export default CustomPageContainer
