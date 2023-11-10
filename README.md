@@ -44,9 +44,9 @@ If you wanna edit and then deploy your portfolio, via GitHub Desktop clone this 
 
 To run it locally, follow these steps:
 
-- Navigate to the server folder of the project.
+- Navigate to the project folder of the project.
 - Run the command `bun install` to install all the necessary dependencies.
-- Run the command `bun run dev` to start the server.
+- Run the command `bun run dev` to start the project.
 
 The client will be running at `http://localhost:5173`.
 
