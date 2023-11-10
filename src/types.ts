@@ -4,23 +4,13 @@ type Task = {
     date: string
     title: string
     priority: Priority
-    status: boolean
+    completed: boolean
     description?: string
-}
+};
 
-type Category = {
-    title: string
-    color: string,
-    todo: Array<Task>
-}
+type TodoList = Map<string, Task[]>;
 
-interface TaskWithCategory extends Task {
-    category: Category
-}
-
-type CategoryList = {
-    [key: string]: Category
-}
+type CategoryColors = Map<string, string>;
 
 type ModalType = {
     visible: boolean,
