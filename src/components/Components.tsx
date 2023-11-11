@@ -16,7 +16,7 @@ line-height: 21px;
 `
 
 export const HomeTitle = styled.h2`
-font-size:18px;
+font-size:22px;
 font-weight:500;
 margin:0px
 `

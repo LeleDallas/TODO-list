@@ -2,7 +2,7 @@ import CustomPageContainer from "../components/Layout/CustomPageContainer"
 import { Avatar, Button, Col, Divider, Popconfirm, Row, Switch } from "antd"
 import { AccountSubTitle, GreyParagraph } from "../components/Components"
 import { QuestionCircleOutlined } from "@ant-design/icons"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import UserFrom from "../components/Modal/UserFrom"
 import { storeData } from "../utils"
 import AvatarDrawer from "../components/Modal/AvatarDrawer"
@@ -21,7 +21,6 @@ const Settings = ({ theme, setTheme, username, setUsername, setPathname }: Setti
     const [avatarFormVisible, setAvatarFormVisible] = useState(false)
     const avatar = useAppSelector(state => state.state.avatar)
 
-    useEffect(() => { }, [avatar])
 
     return (
         <CustomPageContainer title="Settings">
@@ -82,7 +81,7 @@ const Settings = ({ theme, setTheme, username, setUsername, setPathname }: Setti
                                 setPathname("/home")
                             }}
                         >
-                            <Button danger style={{ borderRadius: 6, height: 40 }}>Delete</Button>
+                            <Button type="primary" danger style={{ borderRadius: 6, height: 40 }}>Delete</Button>
                         </Popconfirm>
                     </Col>
                 </Row>

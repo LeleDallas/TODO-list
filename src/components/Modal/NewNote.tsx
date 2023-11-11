@@ -8,7 +8,6 @@ import { message } from "antd";
 const NewNote = ({ visible, setVisible }: ModalType) => {
     const dispatch = useAppDispatch()
 
-
     return (
         <ModalForm
             requiredMark
