@@ -3,7 +3,7 @@ import { globalState } from './reducers'
 
 export const store = configureStore({
     reducer: {
-        update: globalState.reducer,
+        state: globalState.reducer,
     },
 })
 

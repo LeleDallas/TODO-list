@@ -1,5 +1,5 @@
 import { GithubFilled } from '@ant-design/icons';
-import { DefaultFooter, ProLayout } from '@ant-design/pro-components';
+import { ProLayout } from '@ant-design/pro-components';
 import { ProConfigProvider } from '@ant-design/pro-provider';
 import { useState } from 'react';
 import FloatActionButton from '../FloatActionButton';
@@ -8,6 +8,8 @@ import Home from '../../screen/Home';
 import NewNote from '../Modal/NewNote';
 import NewCategory from '../Modal/NewCategory';
 import { layoutProps } from '../../utils';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { updateTheme } from '../../reducers';
 
 type LayoutProps = {
     username: string,
@@ -15,27 +17,22 @@ type LayoutProps = {
 }
 
 const Layout = ({ username, setUsername }: LayoutProps) => {
-    const storedTheme = localStorage.getItem('theme')
+    const theme = useAppSelector(state => state.state.dark)
+    const dispatch = useAppDispatch()
     const [pathname, setPathname] = useState<string>('/home')
-    const [theme, setTheme] = useState(storedTheme !== null ? JSON.parse(storedTheme) : true)
     const [categoryVisible, setCategoryVisible] = useState(false)
     const [noteVisible, setNoteVisible] = useState(false)
-
-    const updateTheme = (isDark: boolean): void => {
-        setTheme(isDark)
-        localStorage.setItem('theme', JSON.stringify(isDark))
-    }
+    const avatar = useAppSelector(state => state.state.avatar)
 
     return (
         <ProConfigProvider dark={theme}>
             <ProLayout
                 style={{ width: "100%" }}
-                footerRender={() => <DefaultFooter copyright="2023 by LeleDallas All Rights Reserved" />}
                 {...layoutProps(theme)}
                 location={{ pathname }}
                 layout='top'
                 avatarProps={{
-                    src: 'https://gw.alipayobjects.com/zos/antfincdn/efFD%24IOql2/weixintupian_20170331104822.jpg',
+                    src: avatar,
                     size: 'default',
                     title: username,
                     onClick: () => setPathname("/settings"),
@@ -57,7 +54,7 @@ const Layout = ({ username, setUsername }: LayoutProps) => {
                     <Settings
                         username={username}
                         theme={theme}
-                        setTheme={updateTheme}
+                        setTheme={(isDark: boolean) => dispatch(updateTheme(isDark))}
                         setUsername={setUsername}
                         setPathname={setPathname}
                     />

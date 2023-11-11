@@ -1,6 +1,6 @@
-import { Badge, Empty, Row, Tag } from "antd";
+import { Avatar, Badge, Empty, Row, Tag } from "antd";
 import styled from "styled-components";
-import { date2Local, loadLocalStorageData, priorityColor } from "../utils";
+import { date2Local, loadLocalStorageMapData, priorityColor } from "../utils";
 import RowCard from "./RowCard";
 import IconFont from "./iconfont";
 
@@ -23,6 +23,12 @@ font-weight:500;
 margin:0px
 `
 
+export const AvatarHover = styled(Avatar)`
+&:hover {
+    cursor: pointer;
+    }
+
+`
 
 export const renderBadge = (count: number, backgroundColor: string) =>
     <Badge
@@ -52,20 +58,27 @@ export const PriorityBadge = (data: Task) =>
     </Row>
 
 
-export const renderRow = (category: string): React.ReactNode => {
-    const existingTodoList: TodoList = loadLocalStorageData("todoList", new Map())
+export const renderRow = (category: string, color: string): React.ReactNode => {
+    const existingTodoList: TodoList = loadLocalStorageMapData("todoList", new Map())
     const tasks: Task[] = existingTodoList.get(category) ?? []
-    return tasks.map((task) => <RowCard key={task.title} category={category} task={task} />)
+    return tasks.map((task) => <RowCard key={task.title} category={category} task={task} color={color} />)
 };
 
 export const renderAllRow = (): React.ReactNode => {
-    const existingTodoList: TodoList = loadLocalStorageData("todoList", new Map())
+    const existingTodoList: TodoList = loadLocalStorageMapData("todoList", new Map())
+    const existingCategories: CategoryColors = loadLocalStorageMapData("categoryColors", new Map())
     return existingTodoList.size === 0 ? (
         <Empty description="No task to do yet" />
     ) : (
         Array.from(existingTodoList.keys()).flatMap((category) => {
             const tasks: Task[] = existingTodoList.get(category) ?? []
-            return tasks.map((task) => <RowCard key={task.title} category={category} task={task} />)
+            return tasks.map((task) =>
+                <RowCard
+                    key={task.title}
+                    category={category}
+                    task={task}
+                    color={existingCategories.get(category) ?? "#00ff00"}
+                />)
         })
     )
 }
