@@ -6,13 +6,11 @@ import IconFont from "./iconfont";
 
 export const AccountSubTitle = styled.h2`
 font-size:20px;
-color: #2d3436;
 font-weight:500;
 margin: 0px;
 `
 export const GreyParagraph = styled.h2`
 font-size:14px;
-color: #636e72;
 font-weight:400;
 line-height: 21px;
 `
@@ -24,10 +22,7 @@ margin:0px
 `
 
 export const AvatarHover = styled(Avatar)`
-&:hover {
-    cursor: pointer;
-    }
-
+&:hover { cursor: pointer;}
 `
 
 export const renderBadge = (count: number, backgroundColor: string) =>
