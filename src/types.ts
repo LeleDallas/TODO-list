@@ -20,3 +20,8 @@ type ModalType = {
 type AvatarImages = {
     [key: string]: string;
 };
+
+type DrawerData = {
+    category: string
+    color: string
+}

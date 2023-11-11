@@ -5,6 +5,7 @@ import { useEffect, useState } from "react"
 import { useAppSelector } from "../hooks"
 import { checkDarkColor, countAll, countDone, loadLocalStorageMapData } from "../utils"
 import IconFont from "../components/iconfont"
+import EditCategory from "../components/Modal/EditCategory"
 
 type HomeProps = {
     username: string
@@ -15,6 +16,16 @@ const Home = ({ username, }: HomeProps) => {
     const [items, setItems] = useState<TabsProps['items']>([])
     const update = useAppSelector(state => state.state.state)
     const isDark = useAppSelector(state => state.state.dark)
+    const [openDrawer, setOpenDrawer] = useState(false)
+    const [drawerData, setDrawerData] = useState<DrawerData>({
+        category: "",
+        color: ""
+    })
+
+    const passDrawerData = (category: string, color: string) => {
+        setOpenDrawer(true)
+        setDrawerData({ category, color })
+    }
 
     useEffect(() => {
         const todoList = loadLocalStorageMapData("todoList", new Map())
@@ -35,7 +46,7 @@ const Home = ({ username, }: HomeProps) => {
                 key,
                 label: <Tag color={color}>{key}</Tag>,
                 children: renderRow(key, color),
-                closeIcon: <IconFont color={checkDarkColor(isDark)} style={{ margin: 0 }} name="bianji" onClick={() => { }} />
+                closeIcon: <IconFont color={checkDarkColor(isDark)} style={{ margin: 0 }} name="bianji" onClick={() => passDrawerData(key, color)} />
             })
         )
         setItems(itemsTab)
@@ -64,7 +75,6 @@ const Home = ({ username, }: HomeProps) => {
                             <Statistic
                                 title={<HomeTitle>Total 📓</HomeTitle>}
                                 value={countAll(existingTodo)}
-                                valueStyle={{ color: 'blue' }}
                             />
                         </Row>
                     </Card>
@@ -75,6 +85,7 @@ const Home = ({ username, }: HomeProps) => {
                     />
                 }
                 <Tabs hideAdd type="editable-card" destroyInactiveTabPane defaultActiveKey="1" items={items} />
+                <EditCategory visible={openDrawer} setVisible={setOpenDrawer} drawerData={drawerData} />
             </>
         </CustomPageContainer >
     )

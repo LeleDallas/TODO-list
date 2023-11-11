@@ -3,7 +3,7 @@ import ProForm, { ModalForm, ProFormText } from "@ant-design/pro-form"
 import { ColorPicker, message } from "antd";
 import { useState } from "react";
 import { Color } from "antd/es/color-picker";
-import { storeData } from "../../utils";
+import { loadLocalStorageMapData, storeData } from "../../utils";
 import { reloadState, setLoad } from "../../reducers";
 import { useAppDispatch } from "../../hooks";
 
@@ -23,8 +23,7 @@ const NewCategory = ({ visible, setVisible }: ModalType) => {
             submitTimeout={2000}
             onFinish={async (values) => {
                 const title = values.title
-                const categoryList = localStorage.getItem("categoryColors")
-                const existingCategories: CategoryColors = categoryList ? new Map(Object.entries(JSON.parse(categoryList))) : new Map() as CategoryColors
+                const existingCategories: CategoryColors = loadLocalStorageMapData("categoryColors", new Map())
                 if (existingCategories.has(title)) {
                     message.error(`Category ${title} already exist`);
                     return
