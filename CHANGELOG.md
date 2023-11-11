@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.0](https://github.com/LeleDallas/TODO-list/compare/v1.0.0...v1.1.0) (2023-11-11)
+
+
+### Features
+
+* avatar drawer ([a4561b8](https://github.com/LeleDallas/TODO-list/commit/a4561b86f930309afdd393f62c5a04cda1178e63))
+* Edit category ([38f97a9](https://github.com/LeleDallas/TODO-list/commit/38f97a9a5e48cfaf176e30185c6c2483e4137c00))
+
 ## 1.0.0 (2023-11-10)
 
 
