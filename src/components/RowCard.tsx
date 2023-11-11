@@ -1,21 +1,22 @@
-import { Badge, Card, Checkbox, Col, Popconfirm, Row } from "antd"
+import { Badge, Card, Checkbox, Col, Popconfirm, Row, Tag } from "antd"
 import { PriorityBadge } from "./Components"
 import IconFont from "./iconfont"
 import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { reloadState } from "../reducers"
-import { loadLocalStorageData, storeData } from "../utils"
+import { loadLocalStorageMapData, storeData } from "../utils"
 
 type RowCard = {
     task: Task,
     category: string
+    color: string
 }
 
-const RowCard = ({ task, category }: RowCard) => {
+const RowCard = ({ task, category, color }: RowCard) => {
     const [checked, setChecked] = useState(task.completed)
     const dispatch = useDispatch()
     const onChange = () => {
-        const existingTodoList: TodoList = loadLocalStorageData("todoList", new Map())
+        const existingTodoList: TodoList = loadLocalStorageMapData("todoList", new Map())
         const updatedTodoList = new Map(existingTodoList)
         const tasks = updatedTodoList.get(category) ?? []
         const updatedTasks = tasks.map((t) =>
@@ -28,7 +29,7 @@ const RowCard = ({ task, category }: RowCard) => {
     }
 
     const deleteTodo = (title: string, category: string): void => {
-        const existingTodoList: TodoList = loadLocalStorageData("todoList", new Map())
+        const existingTodoList: TodoList = loadLocalStorageMapData("todoList", new Map())
         if (existingTodoList.has(category)) {
             const tasks = existingTodoList.get(category) ?? []
             const updatedTasks = tasks.filter((task) => task.title !== title)
@@ -42,6 +43,7 @@ const RowCard = ({ task, category }: RowCard) => {
         <Badge.Ribbon text={checked ? "Done" : "To do"} color={checked ? "green" : "gold"} placement="start">
             <Card
                 key={task.title}
+                extra={<Tag color={color}>{category}</Tag>}
                 title={<p style={{ textDecoration: checked ? "line-through" : "none" }}>{task.title}</p>}
                 style={{ marginTop: 10, padding: 6, boxShadow: "0 2px 5px rgba(0,0,0,0.1)" }}
             >

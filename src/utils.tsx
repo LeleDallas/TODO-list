@@ -1,8 +1,10 @@
+import { DefaultFooter } from "@ant-design/pro-components";
 import IconFont from "./components/iconfont";
 
 export const layoutProps = (isDark: boolean) => ({
     logo: "https://cdn-icons-png.flaticon.com/512/11639/11639333.png",
     title: "TODO List",
+    footerRender: () => <DefaultFooter copyright="2023 by LeleDallas All Rights Reserved" />,
     route: {
         path: '/',
         routes: [
@@ -42,6 +44,11 @@ export const date2Local = (date: string): string => new Date(date)
 
 export const loadLocalStorageData = (key: string, defaultValue: any) => {
     const data = localStorage.getItem(key);
+    return data ? JSON.parse(data) : defaultValue;
+};
+
+export const loadLocalStorageMapData = (key: string, defaultValue: any) => {
+    const data = localStorage.getItem(key);
     return data ? new Map(Object.entries(JSON.parse(data))) : defaultValue;
 };
 
@@ -60,3 +67,12 @@ export const countAll = (todoList: TodoList): number => {
 
     return all
 };
+
+const avatarImages: AvatarImages = {};
+
+for (let i = 1; i <= 36; i++) {
+    const fileName = `Avatar-${i}.svg`;
+    avatarImages[fileName] = `/assets/avatars/${fileName}`;
+}
+
+export default avatarImages;

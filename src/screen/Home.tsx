@@ -1,9 +1,11 @@
-import { Badge, Card, Col, Progress, Row, Statistic, Tabs, TabsProps } from "antd"
+import { Card, Col, Progress, Row, Statistic, Tabs, TabsProps, Tag } from "antd"
 import CustomPageContainer from "../components/Layout/CustomPageContainer"
 import { HomeTitle, renderAllRow, renderRow } from "../components/Components"
 import { useEffect, useState } from "react"
 import { useAppSelector } from "../hooks"
-import { countAll, countDone, loadLocalStorageData } from "../utils"
+import { checkDarkColor, countAll, countDone, loadLocalStorageMapData } from "../utils"
+import IconFont from "../components/iconfont"
+import EditCategory from "../components/Modal/EditCategory"
 
 type HomeProps = {
     username: string
@@ -12,32 +14,41 @@ type HomeProps = {
 const Home = ({ username, }: HomeProps) => {
     const [existingTodo, setExistingTodo] = useState<TodoList>(new Map())
     const [items, setItems] = useState<TabsProps['items']>([])
-    const update = useAppSelector(state => state.update.state)
+    const update = useAppSelector(state => state.state.state)
+    const isDark = useAppSelector(state => state.state.dark)
+    const [openDrawer, setOpenDrawer] = useState(false)
+    const [drawerData, setDrawerData] = useState<DrawerData>({
+        category: "",
+        color: ""
+    })
+
+    const passDrawerData = (category: string, color: string) => {
+        setOpenDrawer(true)
+        setDrawerData({ category, color })
+    }
 
     useEffect(() => {
-        const todoList = loadLocalStorageData("todoList", new Map())
+        const todoList = loadLocalStorageMapData("todoList", new Map())
         setExistingTodo(todoList)
-        const categoryList: CategoryColors = loadLocalStorageData("categoryColors", new Map())
+        const categoryList: CategoryColors = loadLocalStorageMapData("categoryColors", new Map())
 
         const itemsTab: TabsProps['items'] = [
             {
                 key: "1",
                 label: "All",
                 children: renderAllRow(),
+                closeIcon: null
             }
         ]
 
         categoryList.forEach((color, key) =>
             itemsTab?.push({
                 key,
-                label: <Row justify="space-between" align="middle">
-                    <p style={{ margin: 0 }}>{key}</p>
-                    <Badge style={{ marginLeft: 2 }} color={color} />
-                </Row>,
-                children: renderRow(key),
+                label: <Tag color={color}>{key}</Tag>,
+                children: renderRow(key, color),
+                closeIcon: <IconFont color={checkDarkColor(isDark)} style={{ margin: 0 }} name="bianji" onClick={() => passDrawerData(key, color)} />
             })
         )
-
         setItems(itemsTab)
     }, [update])
 
@@ -64,14 +75,17 @@ const Home = ({ username, }: HomeProps) => {
                             <Statistic
                                 title={<HomeTitle>Total 📓</HomeTitle>}
                                 value={countAll(existingTodo)}
-                                valueStyle={{ color: 'blue' }}
                             />
                         </Row>
                     </Card>
                 </Col>
-                <Progress 
-                percent={Math.floor((countDone(existingTodo) / countAll(existingTodo)) * 100)}  />
-                <Tabs destroyInactiveTabPane centered defaultActiveKey="1" items={items} />
+                {countAll(existingTodo) > 0 &&
+                    <Progress
+                        percent={Math.floor((countDone(existingTodo) / countAll(existingTodo)) * 100)}
+                    />
+                }
+                <Tabs hideAdd type="editable-card" destroyInactiveTabPane defaultActiveKey="1" items={items} />
+                <EditCategory visible={openDrawer} setVisible={setOpenDrawer} drawerData={drawerData} />
             </>
         </CustomPageContainer >
     )

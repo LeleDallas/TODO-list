@@ -16,3 +16,12 @@ type ModalType = {
     visible: boolean,
     setVisible: (visible: boolean) => void
 }
+
+type AvatarImages = {
+    [key: string]: string;
+};
+
+type DrawerData = {
+    category: string
+    color: string
+}

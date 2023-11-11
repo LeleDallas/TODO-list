@@ -5,6 +5,8 @@ import { QuestionCircleOutlined } from "@ant-design/icons"
 import { useState } from "react"
 import UserFrom from "../components/Modal/UserFrom"
 import { storeData } from "../utils"
+import AvatarDrawer from "../components/Modal/AvatarDrawer"
+import { useAppSelector } from "../hooks"
 
 type SettingsProps = {
     theme: boolean
@@ -15,13 +17,20 @@ type SettingsProps = {
 }
 
 const Settings = ({ theme, setTheme, username, setUsername, setPathname }: SettingsProps) => {
-    const [visible, setVisible] = useState(false)
+    const [userFormVisible, setUserFormVisible] = useState(false)
+    const [avatarFormVisible, setAvatarFormVisible] = useState(false)
+    const avatar = useAppSelector(state => state.state.avatar)
+
 
     return (
         <CustomPageContainer title="Settings">
             <>
                 <Col style={{ textAlign: "center" }}>
-                    <Avatar src={"https://gw.alipayobjects.com/zos/antfincdn/efFD%24IOql2/weixintupian_20170331104822.jpg"} size={120} />
+                    <Avatar
+                        onClick={() => setAvatarFormVisible(true)}
+                        src={avatar}
+                        size={120}
+                    />
                     <h2 style={{ marginTop: 22, marginBottom: 2 }}>{username}</h2>
                 </Col>
                 <GreyParagraph>Customize your experience with these settings.</GreyParagraph>
@@ -48,7 +57,7 @@ const Settings = ({ theme, setTheme, username, setUsername, setPathname }: Setti
                     <Col>
                         <Button
                             type="primary"
-                            onClick={() => setVisible(true)}
+                            onClick={() => setUserFormVisible(true)}
                             style={{ borderRadius: 6, height: 40 }}>
                             Change
                         </Button>
@@ -72,11 +81,12 @@ const Settings = ({ theme, setTheme, username, setUsername, setPathname }: Setti
                                 setPathname("/home")
                             }}
                         >
-                            <Button danger style={{ borderRadius: 6, height: 40 }}>Delete</Button>
+                            <Button type="primary" danger style={{ borderRadius: 6, height: 40 }}>Delete</Button>
                         </Popconfirm>
                     </Col>
                 </Row>
-                <UserFrom visible={visible} setVisible={setVisible} username={username} setUsername={setUsername} />
+                <UserFrom visible={userFormVisible} setVisible={setUserFormVisible} username={username} setUsername={setUsername} />
+                <AvatarDrawer visible={avatarFormVisible} setVisible={setAvatarFormVisible} />
             </>
         </CustomPageContainer>
     )

@@ -6,7 +6,7 @@ import LoadingSpinner from './components/LoadingSpinner';
 const App = () => {
   const storedUsername = localStorage.getItem('username');
   const [username, setUsername] = useState<string>(storedUsername !== null ? storedUsername : "TODO User")
-  const loading = useAppSelector(state => state.update.loading)
+  const loading = useAppSelector(state => state.state.loading)
 
   useEffect(() => {
     if (!localStorage.getItem('theme')) {

@@ -22,8 +22,8 @@ const UserFrom = ({ visible, setVisible, username, setUsername }: UserFromType) 
                 localStorage.setItem("username", values.username)
                 setUsername(values.username)
                 message.success('Username updated');
+                setVisible(false)
             }
-            return true;
         }}
         style={{ marginTop: 22 }}
     >
