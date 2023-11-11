@@ -25,7 +25,10 @@ const NewCategory = ({ visible, setVisible }: ModalType) => {
                 const title = values.title
                 const categoryList = localStorage.getItem("categoryColors")
                 const existingCategories: CategoryColors = categoryList ? new Map(Object.entries(JSON.parse(categoryList))) : new Map() as CategoryColors
-                if (existingCategories.has(title)) return
+                if (existingCategories.has(title)) {
+                    message.error(`Category ${title} already exist`);
+                    return
+                }
                 dispatch(setLoad(true))
                 existingCategories.set(title, color.toString())
                 storeData("categoryColors", existingCategories)
@@ -33,7 +36,7 @@ const NewCategory = ({ visible, setVisible }: ModalType) => {
                 setVisible(false)
                 setTimeout(() => {
                     dispatch(setLoad(false))
-                    message.success('New Category Added');
+                    message.success(`Category ${title} added`);
                 }, 1200);
             }}
             style={{ marginTop: 22 }}
