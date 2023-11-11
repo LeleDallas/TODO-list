@@ -1,6 +1,6 @@
 
 import ProForm, { ModalForm, ProFormDatePicker, ProFormSelect, ProFormText } from "@ant-design/pro-form"
-import { loadLocalStorageData, storeData } from "../../utils";
+import { loadLocalStorageMapData, storeData } from "../../utils";
 import { useAppDispatch } from "../../hooks";
 import { reloadState, setLoad } from "../../reducers";
 import { message } from "antd";
@@ -29,7 +29,7 @@ const NewNote = ({ visible, setVisible }: ModalType) => {
                     date,
                     completed: false,
                 };
-                const existingTodoList: TodoList = loadLocalStorageData("todoList", new Map());
+                const existingTodoList: TodoList = loadLocalStorageMapData("todoList", new Map());
                 if (existingTodoList.has(category)) {
                     const tasks: Task[] = existingTodoList.get(category) ?? [];
                     const isDuplicateTitle = tasks.some((task) => task.title === title);
