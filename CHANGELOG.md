@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/LeleDallas/TODO-list/compare/v1.1.0...v1.1.1) (2023-11-12)
+
+
+### Bug Fixes
+
+* add missing dot on path ([0355af7](https://github.com/LeleDallas/TODO-list/commit/0355af79868baff3e12ec8c9a9b3d3013320d0ad))
+
 ## [1.1.0](https://github.com/LeleDallas/TODO-list/compare/v1.0.0...v1.1.0) (2023-11-11)
 
 
