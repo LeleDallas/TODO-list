@@ -72,7 +72,7 @@ const avatarImages: AvatarImages = {};
 
 for (let i = 1; i <= 36; i++) {
     const fileName = `Avatar-${i}.svg`;
-    avatarImages[fileName] = `/assets/avatars/${fileName}`;
+    avatarImages[fileName] = `./assets/avatars/${fileName}`;
 }
 
 export default avatarImages;
