@@ -1,3 +1,8 @@
+<p align="center"> 
+  <img alt="Screenshot 2023-03-06 alle 11 32 00" src="https://github.com/LeleDallas/TODO-list/assets/71103219/2a38a502-ed17-4ec2-a684-4db6b6d4d377" height="auto" width="auto" style="border-radius:100%" >
+
+</p>
+
 <h1 align="center"> TODO-list 📆 ✅</h1>
 <p align="center">
   <a href="https://skillicons.dev">
