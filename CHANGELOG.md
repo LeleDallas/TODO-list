@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.2](https://github.com/LeleDallas/TODO-list/compare/v1.1.1...v1.1.2) (2023-12-11)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @reduxjs/toolkit to v2 ([235b055](https://github.com/LeleDallas/TODO-list/commit/235b0558abdd632b7cd0bf5a96a55bbd78e43bae))
+* **deps:** update dependency react-redux to v9 ([4250f43](https://github.com/LeleDallas/TODO-list/commit/4250f43a01c295a87b598c439cd8b79099ff51cc))
+
 ## [1.1.1](https://github.com/LeleDallas/TODO-list/compare/v1.1.0...v1.1.1) (2023-11-12)
 
 
