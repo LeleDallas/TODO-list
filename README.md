@@ -6,7 +6,7 @@
 <h1 align="center"> TODO-list 📆 ✅</h1>
 <p align="center">
   <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=vite,react,githubactions" alt="logos" />
+    <img src="https://skillicons.dev/icons?i=bun vite,react,githubactions" alt="logos" />
   </a>
 </p>
 
